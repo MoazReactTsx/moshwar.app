@@ -1,1 +1,182 @@
 
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>مشوار - سياسة الخصوصية وحذف الحساب</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #0f0f0f;
+      color: #eaeaea;
+      margin: 0;
+      padding: 0;
+      line-height: 1.7;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      background: #1a1a1a;
+      border-bottom: 1px solid #333;
+    }
+    .brand {
+      font-weight: 700;
+      font-size: 22px;
+      color: #00b8d9;
+    }
+    .section {
+      margin: 20px;
+      padding: 20px;
+      background: #1f1f1f;
+      border-radius: 12px;
+    }
+    button {
+      background: #00b8d9;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover { opacity: 0.8; }
+    ul { margin-left: 20px; }
+    a { color: #00b8d9; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h2 class="brand" id="brandName">مشوار</h2>
+    <button id="langBtn"></button>
+  </header>
+  <div id="content"></div>
+
+  <script>
+    const query = new URLSearchParams(window.location.search);
+    const mode = query.get("mode") || "privacy"; // privacy | delete
+    const langQuery = query.get("lang");
+    const supportedLanguages = ["en", "ar"];
+    const lang = supportedLanguages.includes(langQuery) ? langQuery : "ar";
+
+    const contentDiv = document.getElementById("content");
+    const langBtn = document.getElementById("langBtn");
+
+    const texts = {
+      privacy: {
+        ar: `
+          <div class="section">
+            <h1>سياسة الخصوصية</h1>
+            <p>مرحبًا بك في <strong>مشوار</strong>! نحن نلتزم بحماية خصوصيتك وضمان أمان بياناتك الشخصية أثناء استخدامك لتطبيقنا.</p>
+          </div>
+          <div class="section">
+            <h2>البيانات التي نجمعها</h2>
+            <ul>
+              <li>الاسم ورقم الهاتف والبريد الإلكتروني</li>
+              <li>موقعك الجغرافي لتحديد مواقع الانطلاق والوصول</li>
+              <li>بيانات الرحلات وسجلات الدفع</li>
+            </ul>
+          </div>
+          <div class="section">
+            <h2>كيف نستخدم بياناتك</h2>
+            <ul>
+              <li>لتوفير خدمات التوصيل وتحديد السائقين القريبين</li>
+              <li>لتحسين تجربة المستخدم ودقة الخدمة</li>
+              <li>للتواصل معك ودعمك في حال وجود أي مشكلة</li>
+            </ul>
+          </div>
+          <div class="section">
+            <h2>أمان البيانات</h2>
+            <p>نحن نتخذ جميع الإجراءات الأمنية اللازمة لحماية بياناتك من الوصول غير المصرح به أو التعديل أو الحذف.</p>
+          </div>
+          <div class="section">
+            <h2>تواصل معنا</h2>
+            <p>إذا كان لديك أي استفسار، يمكنك مراسلتنا عبر البريد الإلكتروني:
+              <a href="mailto:support@moshwar.app">support@moshwar.app</a>
+            </p>
+          </div>
+        `,
+        en: `
+          <div class="section">
+            <h1>Privacy Policy</h1>
+            <p>Welcome to <strong>Moshwar</strong>! We value your privacy and are committed to keeping your personal data safe while using our app.</p>
+          </div>
+          <div class="section">
+            <h2>Information We Collect</h2>
+            <ul>
+              <li>Name, phone number, and email</li>
+              <li>Location data for pickup and drop-off</li>
+              <li>Trip history and payment details</li>
+            </ul>
+          </div>
+          <div class="section">
+            <h2>How We Use Your Data</h2>
+            <ul>
+              <li>To provide transportation and delivery services</li>
+              <li>To improve app performance and accuracy</li>
+              <li>To communicate with you and provide support</li>
+            </ul>
+          </div>
+          <div class="section">
+            <h2>Data Protection</h2>
+            <p>We take all necessary measures to keep your data secure and prevent unauthorized access or misuse.</p>
+          </div>
+          <div class="section">
+            <h2>Contact Us</h2>
+            <p>If you have any questions, please contact us at
+              <a href="mailto:support@moshwar.app">support@moshwar.app</a>
+            </p>
+          </div>
+        `
+      },
+      delete: {
+        ar: `
+          <div class="section">
+            <h1>حذف الحساب</h1>
+            <p>لحذف حسابك في <strong>مشوار</strong>، يرجى اتباع الخطوات التالية:</p>
+            <ul>
+              <li>افتح التطبيق واذهب إلى "إعدادات الحساب".</li>
+              <li>اختر <strong>حذف الحساب</strong>.</li>
+              <li>سيتم حذف بياناتك نهائيًا خلال <strong>30 يومًا</strong> من تاريخ الطلب.</li>
+            </ul>
+            <p>إذا واجهت أي مشكلة، يمكنك التواصل معنا عبر البريد الإلكتروني:
+              <a href="mailto:support@moshwar.app">support@moshwar.app</a>
+            </p>
+          </div>
+        `,
+        en: `
+          <div class="section">
+            <h1>Delete Account</h1>
+            <p>To delete your <strong>Moshwar</strong> account:</p>
+            <ul>
+              <li>Open the app and go to "Account Settings".</li>
+              <li>Tap <strong>Delete Account</strong>.</li>
+              <li>Your data will be permanently deleted within <strong>30 days</strong>.</li>
+            </ul>
+            <p>If you face any issues, contact us at
+              <a href="mailto:support@moshwar.app">support@moshwar.app</a>
+            </p>
+          </div>
+        `
+      }
+    };
+
+    // عرض المحتوى
+    function render(language) {
+      const selectedText = texts[mode]?.[language] || texts["privacy"].ar;
+      contentDiv.innerHTML = selectedText;
+      langBtn.textContent = language === "en" ? "العربية" : "English";
+      document.body.dir = language === "ar" ? "rtl" : "ltr";
+    }
+
+    langBtn.addEventListener("click", () => {
+      const newLang = lang === "en" ? "ar" : "en";
+      window.location.search = `?mode=${mode}&lang=${newLang}`;
+    });
+
+    render(lang);
+  </script>
+</body>
+</html>
